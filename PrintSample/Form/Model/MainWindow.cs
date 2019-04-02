@@ -64,12 +64,18 @@ namespace PrintSample.Form.Model
                 var queue = printServer.DefaultPrintQueue;
                 var writer = PrintQueue.CreateXpsDocumentWriter(queue);
 
-                // 用紙サイズ：A4, 標準方向
+                // 用紙サイズ：A4
                 var ticket = queue.DefaultPrintTicket;
                 ticket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
                 ticket.PageOrientation = PageOrientation.Portrait;
 
-                writer.Write(CreateFixedPage(PageSource), ticket);
+                var source = (PrintPage.View.MainPage)PageSource;
+                var viewModel = (PrintPage.ViewModel.MainPage)source.DataContext;
+                var page = new PrintPage.View.MainPage() { DataContext = source.DataContext };
+                //var size = new Size(source.DesiredSize.Width, source.DesiredSize.Height);
+                var size = new Size(viewModel.DesignWidth, viewModel.DesignHeight);
+
+                writer.Write(CreateFixedPage(page, size), ticket);
 
             }
             catch (Exception ex)
@@ -85,8 +91,9 @@ namespace PrintSample.Form.Model
         /// PageからFixedPageを作成
         /// </summary>
         /// <param name="sender">Page</param>
+        /// <param name="size">縦横サイズ</param>
         /// <returns>FixedPage</returns>
-        private FixedPage CreateFixedPage(object sender)
+        private FixedPage CreateFixedPage(object sender, Size size)
         {
 
             var fixedPage = new FixedPage();
@@ -98,16 +105,15 @@ namespace PrintSample.Form.Model
                 {
                     Content = page
                 };
-                var pageSize = new Size(page.ActualWidth, page.ActualHeight);
 
                 FixedPage.SetLeft(frame, 0d);
                 FixedPage.SetTop(frame, 0d);
 
                 fixedPage.Children.Add(frame);
-                fixedPage.Width = pageSize.Width;
-                fixedPage.Height = pageSize.Height;
-                fixedPage.Measure(pageSize);
-                fixedPage.Arrange(new Rect(new Point(), pageSize));
+                fixedPage.Width = size.Width;
+                fixedPage.Height = size.Height;
+                fixedPage.Measure(size);
+                fixedPage.Arrange(new Rect(new Point(), size));
                 fixedPage.UpdateLayout();
 
             }

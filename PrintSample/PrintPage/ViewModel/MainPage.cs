@@ -39,6 +39,54 @@ namespace PrintSample.PrintPage.ViewModel
             }
         }
 
+        /// <summary>
+        /// 文章プロパティ
+        /// </summary>
+        public string Text
+        {
+            get { return _Model.Text; }
+            set
+            {
+                if (_Model.Text != value)
+                {
+                    _Model.Text = value;
+                    CallPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 縦サイズプロパティ
+        /// </summary>
+        public double DesignHeight
+        {
+            get { return _Model.DesignHeight; }
+            set
+            {
+                if (_Model.DesignHeight != value)
+                {
+                    _Model.DesignHeight = value;
+                    CallPropertyChanged();
+                }
+            }
+        }
+
+        /// <summary>
+        /// 横サイズプロパティ
+        /// </summary>
+        public double DesignWidth
+        {
+            get { return _Model.DesignWidth; }
+            set
+            {
+                if (_Model.DesignWidth != value)
+                {
+                    _Model.DesignWidth = value;
+                    CallPropertyChanged();
+                }
+            }
+        }
+
         #endregion
 
         /// <summary>

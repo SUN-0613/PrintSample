@@ -18,6 +18,21 @@ namespace PrintSample.PrintPage.Model
         /// </summary>
         public BitmapImage BitmapImage;
 
+        /// <summary>
+        /// 文章
+        /// </summary>
+        public string Text;
+
+        /// <summary>
+        /// 縦サイズ
+        /// </summary>
+        public double DesignHeight = 1123d;
+
+        /// <summary>
+        /// 横サイズ
+        /// </summary>
+        public double DesignWidth = 794d;
+
         #endregion
 
         /// <summary>
