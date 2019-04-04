@@ -60,22 +60,35 @@ namespace PrintSample.Form.Model
             try
             {
 
-                var printServer = new LocalPrintServer();
-                var queue = printServer.DefaultPrintQueue;
-                var writer = PrintQueue.CreateXpsDocumentWriter(queue);
+                using (var printServer = new LocalPrintServer())
+                {
 
-                // 用紙サイズ：A4
-                var ticket = queue.DefaultPrintTicket;
-                ticket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
-                ticket.PageOrientation = PageOrientation.Portrait;
+                    using (var queue = printServer.DefaultPrintQueue)
+                    {
 
-                var source = (PrintPage.View.MainPage)PageSource;
-                var viewModel = (PrintPage.ViewModel.MainPage)source.DataContext;
-                var page = new PrintPage.View.MainPage() { DataContext = source.DataContext };
-                //var size = new Size(source.DesiredSize.Width, source.DesiredSize.Height);
-                var size = new Size(viewModel.DesignWidth, viewModel.DesignHeight);
+                        var writer = PrintQueue.CreateXpsDocumentWriter(queue);
 
-                writer.Write(CreateFixedPage(page, size), ticket);
+                        // 用紙サイズ：A4
+                        var ticket = queue.DefaultPrintTicket;
+                        ticket.PageMediaSize = new PageMediaSize(PageMediaSizeName.ISOA4);
+                        ticket.PageOrientation = PageOrientation.Portrait;
+
+                        if (PageSource is PrintPage.View.MainPage source
+                            && source.Clone() is PrintPage.View.MainPage page
+                            && page.DataContext is PrintPage.ViewModel.MainPage viewModel)
+                        {
+
+                            var size = new Size(viewModel.DesignWidth, viewModel.DesignHeight);
+                            writer.Write(CreateFixedPage(page, size), ticket);
+
+                            page.Dispose();
+                            page = null;
+
+                        }
+
+                    }
+
+                }
 
             }
             catch (Exception ex)
