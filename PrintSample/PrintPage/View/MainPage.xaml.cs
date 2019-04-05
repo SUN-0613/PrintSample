@@ -1,6 +1,5 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Windows;
 using System.Windows.Controls;
 
 namespace PrintSample.PrintPage.View
@@ -10,11 +9,6 @@ namespace PrintSample.PrintPage.View
     /// </summary>
     public partial class MainPage : Page, IDisposable, ICloneable
     {
-
-        /// <summary>
-        /// クローンとして作成されたか
-        /// </summary>
-        private readonly bool _IsClone = false;
 
         /// <summary>
         /// MainPage.View
@@ -34,19 +28,14 @@ namespace PrintSample.PrintPage.View
         /// <summary>
         /// MainPage.View
         /// </summary>
-        /// <param name="dataContext">ViewModel</param>
-        private MainPage(object dataContext)
+        /// <param name="viewModel">ViewModel</param>
+        private MainPage(ViewModel.MainPage viewModel)
         {
 
             InitializeComponent();
 
-            DataContext = dataContext;
-            _IsClone = true;
-
-            if (DataContext is ViewModel.MainPage viewModel)
-            {
-                viewModel.PropertyChanged += OnPropertyChanged;
-            }
+            DataContext = viewModel;
+            viewModel.PropertyChanged += OnPropertyChanged;
 
         }
 
@@ -55,7 +44,16 @@ namespace PrintSample.PrintPage.View
         /// </summary>
         public object Clone()
         {
-            return new MainPage(DataContext);
+
+            if (DataContext is ViewModel.MainPage viewModel)
+            {
+                return new MainPage((ViewModel.MainPage)viewModel.Clone());
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         /// <summary>
@@ -69,14 +67,10 @@ namespace PrintSample.PrintPage.View
 
                 viewModel.PropertyChanged -= OnPropertyChanged;
 
-                if (!_IsClone)
-                {
-                    viewModel.Dispose();
-                }
+                viewModel.Dispose();
+                viewModel = null;
 
             }
-
-            DataContext = null;
 
         }
 

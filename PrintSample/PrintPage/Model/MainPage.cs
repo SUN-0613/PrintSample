@@ -8,7 +8,7 @@ namespace PrintSample.PrintPage.Model
     /// <summary>
     /// MainPage.Model
     /// </summary>
-    public class MainPage : IDisposable
+    public class MainPage : IDisposable, ICloneable
     {
 
         #region ViewModel.Property
@@ -44,14 +44,31 @@ namespace PrintSample.PrintPage.Model
         }
 
         /// <summary>
+        /// MainPage.Model
+        /// </summary>
+        private MainPage(MainPage mainPage)
+        {
+
+            BitmapImage = mainPage.BitmapImage.Clone();
+            Text = mainPage.Text;
+            DesignHeight = mainPage.DesignHeight;
+            DesignWidth = mainPage.DesignWidth;
+
+        }
+
+        /// <summary>
+        /// クローン作成
+        /// </summary>
+        public object Clone()
+        {
+            return new MainPage(this);
+        }
+
+        /// <summary>
         /// 終了処理
         /// </summary>
         public void Dispose()
-        {
-
-            
-
-        }
+        { }
 
         /// <summary>
         /// 画像イメージ作成

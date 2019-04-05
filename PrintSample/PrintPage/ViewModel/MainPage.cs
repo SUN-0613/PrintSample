@@ -11,7 +11,7 @@ namespace PrintSample.PrintPage.ViewModel
     /// <remarks>
     /// 参照の追加：プロジェクト→Common
     /// </remarks>
-    public class MainPage : VMBase, IDisposable
+    public class MainPage : VMBase, IDisposable, ICloneable
     {
 
         /// <summary>
@@ -97,6 +97,22 @@ namespace PrintSample.PrintPage.ViewModel
 
             _Model = new Model.MainPage();
 
+        }
+
+        /// <summary>
+        /// MainPage.ViewModel
+        /// </summary>
+        private MainPage(MainPage mainPage)
+        {
+            _Model = mainPage._Model.Clone() as Model.MainPage;
+        }
+
+        /// <summary>
+        /// クローン作成
+        /// </summary>
+        public object Clone()
+        {
+            return new MainPage(this);
         }
 
         /// <summary>
