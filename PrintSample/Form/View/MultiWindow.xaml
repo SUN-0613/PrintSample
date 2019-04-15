@@ -1,0 +1,99 @@
+﻿<Window x:Class="PrintSample.Form.View.MultiWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:vm="clr-namespace:PrintSample.Form.ViewModel"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
+        xmlns:b="clr-namespace:AYam.Common.Controls.Behaviors;assembly=Common.Controls"
+        mc:Ignorable="d"
+        Title="MultiWindow" Height="600" Width="800">
+    <Window.DataContext>
+        <vm:MultiWindow/>
+    </Window.DataContext>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5" />
+            <RowDefinition Height="20" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="5" />
+            <RowDefinition Height="30" />
+            <RowDefinition Height="0" />
+            <RowDefinition Height="5" />
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="5" />
+            <ColumnDefinition Width="0" />
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="0" />
+            <ColumnDefinition Width="5" />
+        </Grid.ColumnDefinitions>
+
+        <Grid Grid.Row="1" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="25" />
+                <ColumnDefinition Width="Auto" />
+                <ColumnDefinition Width="25" />
+            </Grid.ColumnDefinitions>
+
+            <TextBox Grid.Row="0" Grid.RowSpan="1" Grid.Column="1" Grid.ColumnSpan="1" BorderBrush="Transparent" BorderThickness="0" TextAlignment="Right" VerticalAlignment="Center" Padding="0,0,2,0" Text="{Binding ShowPage, UpdateSourceTrigger=PropertyChanged}" >
+                <i:Interaction.Behaviors>
+                    <b:TextBox />
+                </i:Interaction.Behaviors>
+            </TextBox>
+            <TextBlock Grid.Row="0" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1" TextAlignment="Center" VerticalAlignment="Center" Text="/" />
+            <TextBlock Grid.Row="0" Grid.RowSpan="1" Grid.Column="3" Grid.ColumnSpan="1" TextAlignment="Right" VerticalAlignment="Center" Padding="0,0,2,0" Text="{Binding MaxPage, Mode=OneWay}" />
+
+        </Grid>
+        
+        <Frame Grid.Row="3" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1" NavigationUIVisibility="Hidden" Content="{Binding PageSource, Mode=OneWay}" />
+
+        <Grid Grid.Row="5" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1" >
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="120" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="5" />
+                <ColumnDefinition Width="120" />
+            </Grid.ColumnDefinitions>
+
+            <Button Grid.Row="0" Grid.RowSpan="1" Grid.Column="0" Grid.ColumnSpan="1" Content="前頁" >
+                <Button.InputBindings>
+                    <MouseBinding Command="{Binding PreviousPageCommand}" MouseAction="LeftClick" />
+                </Button.InputBindings>
+            </Button>
+
+            <Button Grid.Row="0" Grid.RowSpan="1" Grid.Column="2" Grid.ColumnSpan="1" Content="次頁" >
+                <Button.InputBindings>
+                    <MouseBinding Command="{Binding NextPageCommand}" MouseAction="LeftClick" />
+                </Button.InputBindings>
+            </Button>
+
+            <Button Grid.Row="0" Grid.RowSpan="1" Grid.Column="4" Grid.ColumnSpan="1" Content="新規頁" >
+                <Button.InputBindings>
+                    <MouseBinding Command="{Binding NewPageCommand}" MouseAction="LeftClick" />
+                </Button.InputBindings>
+            </Button>
+
+            <Button Grid.Row="0" Grid.RowSpan="1" Grid.Column="8" Grid.ColumnSpan="1" Content="印刷" >
+                <Button.InputBindings>
+                    <MouseBinding Command="{Binding PrintCommand}" MouseAction="LeftClick" />
+                </Button.InputBindings>
+            </Button>
+
+        </Grid>
+
+    </Grid>
+</Window>
