@@ -1,4 +1,4 @@
-﻿using AYam.Common.ViewModel;
+﻿using AYam.Common.MVVM;
 using System;
 using System.Windows.Controls;
 
@@ -11,7 +11,7 @@ namespace PrintSample.Form.ViewModel
     /// <remarks>
     /// 参照の追加：プロジェクト→Common
     /// </remarks>
-    public class MainWindow : VMBase, IDisposable
+    public class MainWindow : ViewModelBase, IDisposable
     {
 
         /// <summary>

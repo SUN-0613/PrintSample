@@ -1,4 +1,4 @@
-﻿using AYam.Common.ViewModel;
+﻿using AYam.Common.MVVM;
 using System;
 using System.Windows.Media.Imaging;
 
@@ -11,7 +11,7 @@ namespace PrintSample.PrintPage.ViewModel
     /// <remarks>
     /// 参照の追加：プロジェクト→Common
     /// </remarks>
-    public class MainPage : VMBase, IDisposable, ICloneable
+    public class MainPage : ViewModelBase, IDisposable, ICloneable
     {
 
         /// <summary>

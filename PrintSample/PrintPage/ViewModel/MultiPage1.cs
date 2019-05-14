@@ -1,4 +1,4 @@
-﻿using AYam.Common.ViewModel;
+﻿using AYam.Common.MVVM;
 using System;
 
 namespace PrintSample.PrintPage.ViewModel
@@ -7,7 +7,7 @@ namespace PrintSample.PrintPage.ViewModel
     /// <summary>
     /// MultiPage1.ViewModel
     /// </summary>
-    public class MultiPage1 : VMBase, ICloneable, IDisposable
+    public class MultiPage1 : ViewModelBase, ICloneable, IDisposable
     {
 
         /// <summary>

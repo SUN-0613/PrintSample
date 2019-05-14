@@ -1,4 +1,4 @@
-﻿using AYam.Common.ViewModel;
+﻿using AYam.Common.MVVM;
 using System;
 
 namespace PrintSample.Form.ViewModel
@@ -7,7 +7,7 @@ namespace PrintSample.Form.ViewModel
     /// <summary>
     /// 複数印刷用Window.ViewModel
     /// </summary>
-    public class MultiWindow : VMBase, IDisposable
+    public class MultiWindow : ViewModelBase, IDisposable
     {
 
         /// <summary>
